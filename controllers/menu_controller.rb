@@ -92,7 +92,7 @@ class MenuController
       main_menu
     else
       system "clear"
-      puts "#{entry_request} is not a valid entry. There are #{@address_book.entries.length} entries in this Address Book, please choose again."
+      puts "#{entry_request + 1} is not a valid entry. There are #{@address_book.entries.length} entries in this Address Book, please choose again."
       main_menu
     end
 
