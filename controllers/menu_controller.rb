@@ -2,7 +2,7 @@
 require_relative '../models/address_book'
 
 class MenuController
-  attr_accessor :address_book
+  attr_accessor :address_book, :entries
 
   def initialize
     @address_book = AddressBook.new
@@ -12,10 +12,11 @@ class MenuController
 
     puts "Main Menu - #{@address_book.entries.count} entries"
     puts "1 - View all entries"
-    puts "2 - Create an entry"
-    puts "3 - Search for an entry"
-    puts "4 - Import entries from a CSV"
-    puts "5 - Exit"
+    puts "2 - View a specific entry number"
+    puts "3 - Create an entry"
+    puts "4 - Search for an entry"
+    puts "5 - Import entries from a CSV"
+    puts "6 - Exit"
     print "Enter your selection: "
 
     selection = gets.to_i
@@ -27,17 +28,20 @@ class MenuController
       main_menu
     when 2
       system "clear"
-      create_entry
-      main_menu
+      entry_number_request
     when 3
       system "clear"
-      search_entries
+      create_entry
       main_menu
     when 4
       system "clear"
-      read_csv
+      search_entries
       main_menu
     when 5
+      system "clear"
+      read_csv
+      main_menu
+    when 6
       puts "Good-bye!"
 
       exit(0)
@@ -75,6 +79,23 @@ class MenuController
 
     system "clear"
     puts "New entry created"
+  end
+
+  def entry_number_request
+    system "clear"
+    puts "Which number entry would you like?: "
+    entry_request = (gets.chomp.to_i) - 1
+    if entry_request > -1 && entry_request < @address_book.entries.length
+      system "clear"
+      request =  @address_book.entries[entry_request]
+      puts request.to_s
+      main_menu
+    else
+      system "clear"
+      puts "#{entry_request} is not a valid entry. There are #{@address_book.entries.length} entries in this Address Book, please choose again."
+      main_menu
+    end
+
   end
 
   def search_entries
