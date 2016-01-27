@@ -174,7 +174,39 @@ RSpec.describe AddressBook do
        book.import_from_csv("entries.csv")
        entry = book.binary_search("Billy")
        expect(entry).to be_nil
-    end
+     end
    end
+
+   describe "#iterative_search" do
+     it "searches AddressBook for a non-existent entry" do
+       book.import_from_csv("entries_2.csv")
+       entry = book.iterative_search("Dan")
+       expect(entry).to be_nil
+     end
+     it "searches AddressBook for Kendra" do
+       book.import_from_csv("entries_2.csv")
+       entry = book.iterative_search("Kendra")
+       expect(entry).to be_a Entry
+       check_entry(entry, "Kendra", "111-222-3456", "kendra@gmail.com")
+     end
+     it "searches AddressBook for Stephen" do
+       book.import_from_csv("entries_2.csv")
+       entry = book.iterative_search("Stephen")
+       expect(entry).to be_a Entry
+       check_entry(entry, "Stephen", "444-555-6789", "stephen@gmail.com")
+     end
+
+     it "searches AddressBook for Zoe" do
+       book.import_from_csv("entries_2.csv")
+       entry = book.iterative_search("Zoe")
+       expect(entry).to be_a Entry
+       check_entry(entry, "Zoe", "333-444-5678", "zoe@gmail.com")
+     end
+     it "searches AddressBook for Billy" do
+       book.import_from_csv("entries_2.csv")
+       entry = book.iterative_search("Billy")
+       expect(entry).to be_nil
+    end
+  end
 
 end
