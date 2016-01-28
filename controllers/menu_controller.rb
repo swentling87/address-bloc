@@ -16,7 +16,8 @@ class MenuController
     puts "3 - Create an entry"
     puts "4 - Search for an entry"
     puts "5 - Import entries from a CSV"
-    puts "6 - Exit"
+    puts "6 - Delete all entries"
+    puts "7 - Exit"
     print "Enter your selection: "
 
     selection = gets.to_i
@@ -41,7 +42,12 @@ class MenuController
       system "clear"
       read_csv
       main_menu
+
     when 6
+      system "clear"
+      exterminate
+      main_menu
+    when 7
       puts "Good-bye!"
 
       exit(0)
@@ -61,6 +67,16 @@ class MenuController
     end
     system "clear"
     puts "End of entries"
+  end
+
+  def exterminate
+    while @address_book.entries.length > 0
+      @address_book.entries.shift
+    end
+      system "clear"
+      puts "All entries have been exterminated. Dalek victory is complete. Daleks reign supreme."
+
+      main_menu
   end
 
   def create_entry
